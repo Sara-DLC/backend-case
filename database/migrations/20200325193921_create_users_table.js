@@ -10,7 +10,6 @@ exports.up = function(knex) {
         table.increments();
         table.integer('case_id')
         .unsigned()
-        .notNullable()
         .references('id')
         .inTable('users')
         .onUpdate('CASCADE')
@@ -28,7 +27,6 @@ exports.up = function(knex) {
         table.increments();
         table.integer('agency_id')
         .unsigned()
-        .notNullable()
         .references('id')
         .inTable('cases')
         .onUpdate('CASCADE')
@@ -42,28 +40,10 @@ exports.up = function(knex) {
         table.string('state').notNullable()
     })
 
-    .createTable('joins', table => {
-        table.increments();
-        table.integer('case_id')
-        .unsigned()
-        .notNullable()
-        .references('id')
-        .inTable('agency')
-        .onUpdate('CASCADE')
-        .onDelete('CASCADE');
-        table.integer('agency_id')
-        .unsigned()
-        .notNullable()
-        .references('id')
-        .inTable('cases')
-        .onUpdate('CASCADE')
-        .onDelete('CASCADE');
-    })
 };
 
 exports.down = function(knex) {
     return knex.schema
-    .dropTableIfExists('joins')
     .dropTableIfExists('agency')
     .dropTableIfExists('cases')
     .dropTableIfExists('users')

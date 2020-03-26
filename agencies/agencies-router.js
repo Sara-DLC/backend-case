@@ -1,5 +1,6 @@
 const router = require('express').Router();
 const Agency = require('./agencies-model');
+const User = require('../users/users-model');
 
 router.get('/', (req, res) => {
     Agency
@@ -34,6 +35,7 @@ router.post('/', (req, res) => {
     res.status(500).json({ message: 'Failed to add new agency' });
     });
 });
+
 
 router.put('/:id', (req, res) => {
     const changes = req.body;

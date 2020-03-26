@@ -11,8 +11,7 @@ module.exports = {
 
 
 function find(){
-    return db('users')
-    .first();
+    return db('users');
 };
 
 function findBy(filter) {
