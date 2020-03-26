@@ -19,8 +19,20 @@ router.get('/:id', (req, res) => {
     })
 .catch(error => {
     console.log(error);
-    res.status(500).json({ errorMessage: "The users information could not be retrieved."})
+    res.status(500).json({ errorMessage: "This agencies information could not be retrieved."})
 })
+});
+
+router.post('/', (req, res) => {
+    const data = req.body;
+    Agency.add(data)
+    .then(newTask => {
+    res.status(201).json(newTask);
+    })
+    .catch (err => {
+        console.log(err);
+    res.status(500).json({ message: 'Failed to add new agency' });
+    });
 });
 
 router.put('/:id', (req, res) => {
@@ -32,11 +44,11 @@ router.put('/:id', (req, res) => {
 
     Agency.update(id, changes)
     .then( update => {
-        update === 0 ? res.status(404).json({ message: "This user does not exist." }) : res.status(200).json(changes);
+        update === 0 ? res.status(404).json({ message: "This agency does not exist." }) : res.status(200).json(changes);
     })
     .catch(error => {
     console.log(error);
-    res.status(500).json({ error: "There was an error while saving the users information" });
+    res.status(500).json({ error: "There was an error while saving the agency information" });
 });
 });
 
@@ -45,11 +57,11 @@ router.put('/:id', (req, res) => {
 router.delete('/:id', (req, res) => {
     Agency.remove(req.params.id)
     .then(removed => {
-        removed > 0 ? res.status(200).json({ message: 'user successfully deleted' }) : res.status(404).json({ message: "The specified user does not exist." });
+        removed > 0 ? res.status(200).json({ message: 'agency successfully deleted' }) : res.status(404).json({ message: "The specified agency does not exist." });
     })
     .catch(error => {
         console.log(error);
-        res.status(500).json({ error: "The user could not be removed" })
+        res.status(500).json({ error: "The agency could not be removed" })
     })
 });
 
