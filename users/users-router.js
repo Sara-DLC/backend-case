@@ -10,7 +10,6 @@ router.get('/', (req, res) => {
     .catch(error => res.send(error));
 });
 
-
 router.get('/:id', (req, res) => {
     const id = req.params.id
     Users.findById(id)
@@ -21,6 +20,18 @@ router.get('/:id', (req, res) => {
     console.log(error);
     res.status(500).json({ errorMessage: "The users information could not be retrieved."})
 })
+});
+
+router.post('/', (req, res) => {
+    const data = req.body;
+    Users.add(data)
+    .then(newTask => {
+    res.status(201).json(newTask);
+    })
+    .catch (err => {
+        console.log(err);
+    res.status(500).json({ message: 'Failed to add new user' });
+    });
 });
 
 router.put('/:id', (req, res) => {
